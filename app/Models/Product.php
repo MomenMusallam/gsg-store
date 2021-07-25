@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+    const STATUS_ACTIVE = 'active';
+    const STATUS_DRAFT  = 'draft';
+
 }
