@@ -23,8 +23,8 @@ class CategoriesController extends Controller
             ->orderBy('categories.created_at', 'DESC')
             ->orderBy('categories.name', 'ASC')
             ->get();
-
-        return view('index', [
+//        dd($entries);
+        return view('admin.categories.index', [
             'categories' => $entries,
             'title' => 'Categories List',
         ]);
@@ -37,7 +37,8 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        $parents = Category::all();
+        return view('admin.categories.create', compact('parents'));
     }
 
     /**
@@ -48,7 +49,12 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->merge([
+            'slug' => Str::slug($request->post('name')),
+            'status' => 'active',
+        ]);
+        $category = Category::create($request->all());
+        return redirect()->route('categories.index');
     }
 
     /**
