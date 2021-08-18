@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoriesController extends Controller
 {
@@ -54,12 +56,24 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'name' => 'required|string|max:255|min:3|unique:categories',
+            'parent_id' => 'required|int|exists:categories,id',
+            'description' => 'nullable|min:5',
+            'status' => 'required|in:active,draft',
+            'image' => 'image|max:512000|dimensions:min_width=300,min_height=300',
+        ];
+
+        $clean = $request->validate($rules, [
+            'parent_id.required' => 'The parent is required!',
+        ]);
         $request->merge([
             'slug' => Str::slug($request->post('name')),
             'status' => 'active',
         ]);
         $category = Category::create($request->all());
-        return redirect()->route('categories.index');//PRG
+        return redirect()->route('categories.index')
+            ->with('success', 'Category created');//PRG
     }
 
     /**
@@ -93,10 +107,11 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         Category::find($id)->update( $request->all() );
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')
+            ->with('success', 'Category updated');
     }
 
     /**
