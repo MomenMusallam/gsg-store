@@ -31,11 +31,12 @@ class CategoryFactory extends Factory
         $status = ['active', 'draft'];
 
         $name = $this->faker->name();
+
         return [
             'name' => $name,
             'slug' => Str::slug($name),
             'parent_id' => $category ? $category->id : null,
-            'description' => $this->faker->words(150, true),
+            'description' => $this->faker->words(200, true),
             'image_path' => $this->faker->imageUrl(),
             'status' => $status[rand(0, 1)],
         ];
