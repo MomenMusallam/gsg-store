@@ -152,9 +152,9 @@ return [
     */
 
     'attributes' => [
-//        'parent_id' => 'الأب',
-//        'email' => 'email address',
-//        'name' => 'الاسم',
+        'parent_id' => 'Parent',
+        'email' => 'email address',
+        'name' => 'Name',
     ],
 
 ];
