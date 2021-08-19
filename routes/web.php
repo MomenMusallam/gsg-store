@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\ProductsController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +19,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
 Route::get('/admin/categories', [CategoriesController::class, 'index'])->name('categories.index');
 Route::get('/admin/categories/create', [CategoriesController::class, 'create'])->name('categories.create');
 Route::post('/admin/categories', [CategoriesController::class, 'store'])->name('categories.store');
@@ -29,4 +34,3 @@ Route::put('/admin/categories/{id}', [CategoriesController::class, 'update'])->n
 Route::delete('/admin/categories/{id}', [CategoriesController::class, 'destroy'])->name('categories.destroy');
 
 Route::resource('/admin/products', ProductsController::class);
-

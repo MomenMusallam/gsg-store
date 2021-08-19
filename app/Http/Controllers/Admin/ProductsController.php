@@ -11,6 +11,11 @@ use Illuminate\Support\Str;
 
 class ProductsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified' , 'password.confirm']);
+    }
+
     /**
      * Display a listing of the resource.
      *
