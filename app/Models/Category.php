@@ -13,4 +13,5 @@ class Category extends Model
         'name', 'slug', 'parent_id', 'status', 'description',
     ];
 
+
 }

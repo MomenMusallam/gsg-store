@@ -13,11 +13,12 @@
 
 @section('content')
 
-    @if (Session::has('success'))
-        <div class="alert alert-success">
-            {{ Session::get('success') }}
-        </div>
-    @endif
+    <x-alert />
+
+    <x-message type="info" :count="1 + 1" class="display-1">
+        <x-slot name="title">Info</x-slot>
+        Welcome to Laravel
+    </x-message>
 
     <table class="table">
         <thead>
@@ -29,14 +30,14 @@
             <th>Qty.</th>
             <th>Status</th>
             <th>Created At</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         @foreach($products as $product)
             <tr>
-                <td><img src="{{ asset('storage/' . $product->image_path) }}" width="60" alt=""></td>
+                <td><img src="{{ asset('uploads/' . $product->image_path) }}" width="60" alt=""></td>
                 <td>{{ $product->name }}</td>
                 <td>{{ $product->category_name }}</td>
                 <td>{{ $product->price }}</td>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+Route::get('/', function () {
+    return view('welcome');
+});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/admin/categories', [CategoriesController::class, 'index'])->name('categories.index');
 Route::get('/admin/categories/create', [CategoriesController::class, 'create'])->name('categories.create');
