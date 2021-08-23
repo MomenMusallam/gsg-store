@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,3 +41,12 @@ Route::put('/admin/categories/{id}', [CategoriesController::class, 'update'])->n
 Route::delete('/admin/categories/{id}', [CategoriesController::class, 'destroy'])->name('categories.destroy');
 
 Route::resource('/admin/products', ProductsController::class);
+
+Route::get('/admin/trash/products', [ProductsController::class, 'trash'])
+    ->name('products.trash');
+
+Route::put('/admin/trash/products/{id?}', [ProductsController::class, 'restore'])
+    ->name('products.restore');
+Route::delete('admin/trash/products/{id?}', [ProductsController::class, 'forceDelete'])
+    ->name('products.force-delete');
+
